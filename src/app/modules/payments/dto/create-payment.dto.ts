@@ -7,7 +7,7 @@ export const PaymentModelName = 'payment';
 export class CreatePaymentDto {
   @ApiProperty()
   @Prop({ type: 'id', required: true })
-  order_ID: ObjectId;
+  orderId: ObjectId;
 
   @ApiProperty()
   @Prop({ type: 'string', required: true, trim: true })

@@ -8,7 +8,6 @@ export class UpdatePaymentDto {
     @Prop({type: 'id', required: true})
     order_ID: ObjectId;
 
-
     @ApiProperty()
     @Prop({type: 'string', required: true, trim: true})
     status: string;
