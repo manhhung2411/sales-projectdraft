@@ -9,7 +9,7 @@ export const  OrderSchema = new Schema({
     unitPrice: String,
     currency: String,
     quantity: Number,
-    total: String,
+    total: Number,
     status: String,
     createdAt: {
         type: Date,
