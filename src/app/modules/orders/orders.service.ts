@@ -21,8 +21,8 @@ export class OrdersService {
   }
 
   async listOrder(getOrderQuery: GetOrderQuery): Promise<Order[]> {
-    const { productName, currency, category } = getOrderQuery;
-    const order = await this.orderModel.find();
+    const { productName, currency, category} = getOrderQuery;
+    const order = await this.orderModel.find(getOrderQuery);
     return order;
   }
 

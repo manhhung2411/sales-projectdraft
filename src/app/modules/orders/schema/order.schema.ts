@@ -4,9 +4,10 @@ export const  OrderSchema = new Schema({
     productName: {
         type: String, 
         unique: true,
+        allowNull: true,
     },
     category: String,
-    unitPrice: String,
+    unitPrice: Number,
     currency: String,
     quantity: Number,
     total: Number,

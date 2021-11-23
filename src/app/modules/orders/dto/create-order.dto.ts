@@ -1,11 +1,12 @@
 import { Prop, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsString } from "class-validator";
 
 export const OrderModelName = 'Order';
 
 export class CreateOrderDto {
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true, unique: true})
+    @Prop({type: 'string', required: true, trim: true, unique: true, allowNull: true})
     productName: string;
 
     @ApiProperty()
@@ -13,8 +14,8 @@ export class CreateOrderDto {
     category!: string;
 
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
-    unitPrice!: string;
+    @Prop({type: 'number', required: true, trim: true})
+    unitPrice!: number;
 
     @ApiProperty()
     @Prop({type: 'string', required: true, trim: true})
@@ -48,11 +49,14 @@ export class CreateOrderDto {
 
 export class GetOrderQuery {
     @ApiProperty()
+    @IsString()
     productName: string;
 
     @ApiProperty()
+    @IsString()
     currency: string;
 
     @ApiProperty()
+    @IsString()
     category: string;
 }

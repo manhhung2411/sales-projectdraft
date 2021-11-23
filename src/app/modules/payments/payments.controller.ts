@@ -15,7 +15,7 @@ export class PaymentsController {
     const payment = await this.paymentsService.createPayment(createPaymentDto)
     return res.status(HttpStatus.OK).json({
         message: 'Create payment successfully',
-        payment: payment,
+        data: payment,
     })
   }
 
@@ -24,7 +24,7 @@ export class PaymentsController {
     const payment = await this.paymentsService.listPayment()
     return res.status(HttpStatus.OK).json({
       message: 'List payment successfully',
-      payment: payment
+      data: payment
     })
   }
 
@@ -33,7 +33,7 @@ export class PaymentsController {
     const payment = await this.paymentsService.getPayment(paymentId);
     return res.status(HttpStatus.OK).json({
       message: 'Get payment successfully',
-      payment: payment
+      data: payment
     })
   }
 
@@ -43,7 +43,7 @@ export class PaymentsController {
     const payment = await this.paymentsService.updatePayment(paymentId, updatePaymentDto);
     return res.status(HttpStatus.OK).json({
       message: 'Update payment successful',
-      payment: payment
+      data: payment
     })
   }
 
@@ -52,7 +52,7 @@ export class PaymentsController {
     const payment = await this.paymentsService.removePayment(paymentId);
     return res.status(HttpStatus.OK).json({
       message: 'Delete payment successfully',
-      payment: payment
+      data: payment
     })
   }
 }

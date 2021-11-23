@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateOrderDto {
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true, unique: true})
+    @Prop({type: 'string', required: true, trim: true, unique: true, allowNull: true})
     productName: string;
 
     @ApiProperty()
@@ -11,19 +11,19 @@ export class UpdateOrderDto {
     category!: string;
 
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
-    unitPrice!: string;
+    @Prop({type: 'number', required: true, trim: true})
+    unitPrice!: number;
 
     @ApiProperty()
     @Prop({type: 'string', required: true, trim: true})
     currency!: string;
 
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @Prop({type: 'number', required: true, trim: true})
     quantity!: number;
 
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @Prop({type: 'number', required: true, trim: true})
     total!: number;
 
     @ApiProperty()
