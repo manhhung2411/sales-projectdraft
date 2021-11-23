@@ -32,7 +32,6 @@ export class CreateOrderDto {
     @Prop({type: 'number', required: true, trim: true})
     status!: string;
 
-
     @ApiProperty()
     @Prop({type: 'date', required: true})
     createdAt!: Date;
@@ -53,7 +52,7 @@ export class GetOrderQuery {
 
     @ApiProperty()
     currency: string;
-    
+
     @ApiProperty()
     category: string;
 }
