@@ -13,7 +13,7 @@ import { AuthModule } from './app/auth/auth.module';
     MongooseModule.forRoot(config.get<string>('mongodb')),
     OrdersModule,
     PaymentsModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
