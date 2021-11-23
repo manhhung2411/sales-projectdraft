@@ -25,11 +25,11 @@ export class CreateOrderDto {
     quantity!: number;
 
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @Prop({type: 'number', required: true, trim: true})
     total!: number;
 
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @Prop({type: 'number', required: true, trim: true})
     status!: string;
 
 
@@ -50,6 +50,10 @@ export class CreateOrderDto {
 export class GetOrderQuery {
     @ApiProperty()
     productName: string;
+
+    @ApiProperty()
     currency: string;
+    
+    @ApiProperty()
     category: string;
 }
