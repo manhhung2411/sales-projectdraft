@@ -1,6 +1,4 @@
 import { Document } from 'mongoose';
-import { ObjectId } from 'mongoose';
-
 export interface Order extends Document {
     readonly productName: string;
     readonly category: string;

@@ -5,7 +5,7 @@ export const OrderModelName = 'Order';
 
 export class CreateOrderDto {
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @Prop({type: 'string', required: true, trim: true, unique: true})
     productName: string;
 
     @ApiProperty()

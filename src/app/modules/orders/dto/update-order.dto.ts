@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateOrderDto {
     @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @Prop({type: 'string', required: true, trim: true, unique: true})
     productName: string;
 
     @ApiProperty()
