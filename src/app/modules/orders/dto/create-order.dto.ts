@@ -42,12 +42,14 @@ export class CreateOrderDto {
     updatedAt!: Date;
 }
 
-export type OrderDocument = CreateOrderDto & Document;
+// export type OrderDocument = CreateOrderDto & Document;
 
-export const OrderSchema = SchemaFactory.createForClass(CreateOrderDto);
+// export const OrderSchema = SchemaFactory.createForClass(CreateOrderDto);
 
 
 export class GetOrderQuery {
     @ApiProperty()
     productName: string;
+    currency: string;
+    category: string;
 }

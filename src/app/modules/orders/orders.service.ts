@@ -6,6 +6,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './interface/order.interface';
 
 
+
 @Injectable()
 export class OrdersService {
   constructor(@InjectModel(OrderModelName)
@@ -17,7 +18,7 @@ export class OrdersService {
   }
 
   async listOrder(getOrderQuery: GetOrderQuery): Promise<Order[]>{
-    const {productName} = getOrderQuery;
+    const {productName, currency, category} = getOrderQuery;
     const order = await this.orderModel.find();
     return order;
   }

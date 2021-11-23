@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, Query, NotFoundException } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { ApiBody, ApiConsumes, ApiTags } from "@nestjs/swagger";
-import { CreateOrderDto, GetOrderQuery, OrderDocument } from './dto/create-order.dto';
+import { CreateOrderDto, GetOrderQuery } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
 
@@ -16,8 +16,8 @@ export class OrdersController {
     const order = await this.ordersService.createOrder(createOrderDto);
     return res.status(HttpStatus.OK).json({
       message: 'Create order successfully',
-      data: order,
-    })``
+      order: order,
+    })
   }
 
   @Get()
@@ -25,7 +25,7 @@ export class OrdersController {
     const order = await this.ordersService.listOrder(getOrderQuery);
     return res.status(HttpStatus.OK).json({
       message: 'List all Orders successfully',
-      data: order,
+      order: order,
     })
   }
 
@@ -35,7 +35,7 @@ export class OrdersController {
     if(!order) throw new NotFoundException ('Order not existed');
     return res.status(HttpStatus.OK).json({
       message: 'Get order successfully',
-      data: order,
+      order: order,
     })
   }
 
@@ -45,7 +45,7 @@ export class OrdersController {
     const order =  this.ordersService.updateOrder(OrderId, updateOrderDto);
     return res.status(HttpStatus.OK).json({
         message: 'Update order successfully',
-        data: order,
+        order: order,
     })
   }
 
@@ -54,7 +54,7 @@ export class OrdersController {
     const order = await this.ordersService.removeOrder(orderId);
     return res.status(HttpStatus.OK).json({
       message: 'Delete Order successfully',
-      data: order
+      order: order
     })
   }
 }

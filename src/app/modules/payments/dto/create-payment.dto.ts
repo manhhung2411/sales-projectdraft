@@ -19,7 +19,7 @@ export class CreatePaymentDto {
     
 }
 
-export type PaymentDocument = CreatePaymentDto & Document;
+// export type PaymentDocument = CreatePaymentDto & Document;
 
-export const PaymentSchema = SchemaFactory.createForClass(CreatePaymentDto);
+// export const PaymentSchema = SchemaFactory.createForClass(CreatePaymentDto);
 
