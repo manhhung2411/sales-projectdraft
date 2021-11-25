@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { OrderModelName } from './dto/create-order.dto';
-import { OrderSchema } from './schema/order.schema';
+import { OrderModelName, OrderSchema } from './schema/order.schema';
 
 @Module({
   imports:[

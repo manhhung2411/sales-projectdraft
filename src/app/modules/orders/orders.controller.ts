@@ -13,7 +13,8 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { CreateOrderDto, GetOrderQuery } from './dto/create-order.dto';
+import {GetOrderQuery, Order } from './schema/order.schema';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
 @ApiTags('Orders')
@@ -21,55 +22,30 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @ApiBody({ type: CreateOrderDto })
+  @ApiBody({ type: Order })
   @Post()
-  async create(@Res() res, @Body() createOrderDto: CreateOrderDto) {
-    const order = await this.ordersService.createOrder(createOrderDto);
-    return res.status(HttpStatus.OK).json({
-      message: 'Create order successfully',
-      data: order,
-    });
+  async create(@Body() createOrderDto: CreateOrderDto, productName: string): Promise<Order>{
+    return this.ordersService.createOrder(createOrderDto, productName);
   }
 
   @Get()
-  async findAll(@Res() res, @Query() getOrderQuery: GetOrderQuery) {
-    const order = await this.ordersService.listOrder(getOrderQuery);
-    return res.status(HttpStatus.OK).json({
-      message: 'List Orders successfully',
-      data: order,
-    });
+  async findAll(@Query() getOrderQuery: GetOrderQuery): Promise<Order[]>{
+    return this.ordersService.listOrder(getOrderQuery)
   }
 
   @Get(':id')
-  async findOne(@Res() res, @Param('id') orderId: string) {
-    const order = await this.ordersService.getOrder(orderId);
-    if (!order) throw new NotFoundException('Order not existed');
-    return res.status(HttpStatus.OK).json({
-      message: 'Get order successfully',
-      data: order,
-    });
+  async findOne(@Param('id') orderId: string) : Promise<Order>{
+    return this.ordersService.getOrder(orderId)
   }
 
-  @ApiBody({ type: CreateOrderDto })
+  @ApiBody({ type: Order })
   @Patch(':id')
-  async update(
-    @Res() res,
-    @Param('id') OrderId: string,
-    @Body() updateOrderDto: UpdateOrderDto,
-  ) {
-    const order = this.ordersService.updateOrder(OrderId, updateOrderDto);
-    return res.status(HttpStatus.OK).json({
-      message: 'Update order successfully',
-      data: order,
-    });
+  async update(@Param('id') orderId: string, @Body() updateOrderDto: UpdateOrderDto): Promise<Order>{
+    return this.ordersService.updateOrder(orderId, updateOrderDto)
   }
 
   @Delete(':id')
-  async remove(@Res() res, @Param('id') orderId: string) {
-    const order = await this.ordersService.removeOrder(orderId);
-    return res.status(HttpStatus.OK).json({
-      message: 'Delete Order successfully',
-      data: order,
-    });
+  async remove(@Param('id') orderId: string): Promise<Order>{
+    return this.ordersService.removeOrder(orderId)
   }
 }

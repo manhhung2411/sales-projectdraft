@@ -1,50 +1,57 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {
-  CreateOrderDto,
-  GetOrderQuery,
-  OrderModelName,
-} from './dto/create-order.dto';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { Order } from './interface/order.interface';
+import { Order, GetOrderQuery, OrderModelName, OrderDocument } from './schema/order.schema';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectModel(OrderModelName)
-    private readonly orderModel: Model<CreateOrderDto>,
+    private readonly orderModel: Model<OrderDocument>,
   ) {}
-  async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
-    const order = new this.orderModel(createOrderDto);
-    return await order.save();
+  async createOrder(createOrderDto: CreateOrderDto, productName: string): Promise<Order> {
+    const order = await this.orderModel.find({ productName })
+    console.log(order);
+    if(order){
+      throw new HttpException('ORDER_EXISTED', HttpStatus.BAD_REQUEST)
+    }
+    console.log(order)
+    const createOrder = await this.orderModel.create(createOrderDto); 
+    return createOrder
+  
   }
 
   async listOrder(getOrderQuery: GetOrderQuery): Promise<Order[]> {
-    const { productName, currency, category} = getOrderQuery;
-    const order = await this.orderModel.find(getOrderQuery);
-    return order;
+    const {productName, category, currency} = getOrderQuery
+    return this.orderModel.find(getOrderQuery);
   }
 
   async getOrder(orderId: string): Promise<Order> {
     const order = await this.orderModel.findById(orderId);
-    return order;
+    if(!order){
+      throw new NotFoundException('ORDER_NOT_EXISTED');
+    }
+      return order
   }
 
-  async updateOrder(
-    orderId: string,
-    updateOrderDto: UpdateOrderDto,
-  ): Promise<Order> {
-    const order = await this.orderModel.findByIdAndUpdate(
-      orderId,
-      updateOrderDto,
-      { new: true },
-    );
-    return order;
+  // async findByName({productName: productName}): Promise<Order> {
+  //   const order = await this.orderModel.findOne({productName:productName});
+  //   console.log(productName)
+  //   if(order) {
+  //     throw new BadRequestException('ORDER_EXISTED');
+  //   }
+  //   return order
+  // }
+
+  async updateOrder(orderId: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    const order = await this.getOrder(orderId)
+    await this.orderModel.findByIdAndUpdate(order._id, updateOrderDto );
+    return this.getOrder(order._id);
   }
 
   async removeOrder(orderId: string): Promise<Order> {
-    const order = await this.orderModel.findByIdAndDelete(orderId);
-    return order;
+    return this.orderModel.findByIdAndDelete(orderId);
   }
 }

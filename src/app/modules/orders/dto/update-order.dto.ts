@@ -1,41 +1,25 @@
-import { Prop, SchemaFactory } from "@nestjs/mongoose";
-import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from "class-validator";
+
 
 export class UpdateOrderDto {
-    @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true, unique: true, allowNull: true})
-    productName: string;
+    @IsNotEmpty()
+    productName!: string;
 
-    @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @IsNotEmpty()
     category!: string;
 
-    @ApiProperty()
-    @Prop({type: 'number', required: true, trim: true})
+    @IsNotEmpty()
     unitPrice!: number;
 
-    @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @IsNotEmpty()
     currency!: string;
 
-    @ApiProperty()
-    @Prop({type: 'number', required: true, trim: true})
+    @IsNotEmpty()
     quantity!: number;
 
-    @ApiProperty()
-    @Prop({type: 'number', required: true, trim: true})
+    @IsNotEmpty()
     total!: number;
 
-    @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
+    @IsNotEmpty()
     status!: string;
-
-
-    @ApiProperty()
-    @Prop({type: 'date', required: true})
-    createdAt!: Date;
-
-    @ApiProperty()
-    @Prop({type: 'date', required: true})
-    updatedAt!: Date;
 }

@@ -1,23 +1,10 @@
-import { Prop } from "@nestjs/mongoose";
-import {ApiProperty} from '@nestjs/swagger';
-import { ObjectId } from "mongoose";
+import { IsNotEmpty } from "class-validator";
 
 
 export class UpdatePaymentDto {
-    @ApiProperty()
-    @Prop({type: 'id', required: true})
-    order_ID: ObjectId;
+    @IsNotEmpty()
+    orderId!: string;
 
-    @ApiProperty()
-    @Prop({type: 'string', required: true, trim: true})
-    status: string;
-
-    @ApiProperty()
-    @Prop({type: 'date', required: true})
-    createdAt: Date;
-    
-    @ApiProperty()
-    @Prop({type: 'date', required: true})
-    updatedAt: Date;
-    
+    @IsNotEmpty()
+    status!: string;
 }
