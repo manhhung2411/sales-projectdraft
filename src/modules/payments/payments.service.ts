@@ -14,7 +14,6 @@ import {
   PaymentDocument,
   PaymentModelName,
 } from './schema/payment.schema';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class PaymentsService {
