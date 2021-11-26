@@ -12,15 +12,14 @@ export class OrdersService {
     private readonly orderModel: Model<OrderDocument>,
   ) {}
   async createOrder(createOrderDto: CreateOrderDto, productName: string): Promise<Order> {
-    const order = await this.orderModel.find({ productName })
-    console.log(order);
+    const order = await this.orderModel.findOne({ productName })
+    console.log(productName);
     if(order){
       throw new HttpException('ORDER_EXISTED', HttpStatus.BAD_REQUEST)
     }
     console.log(order)
     const createOrder = await this.orderModel.create(createOrderDto); 
     return createOrder
-  
   }
 
   async listOrder(getOrderQuery: GetOrderQuery): Promise<Order[]> {

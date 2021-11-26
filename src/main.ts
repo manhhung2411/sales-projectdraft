@@ -12,9 +12,11 @@ async function bootstrap() {
   .setDescription('SALES API Documentation')
   .setVersion('1.0')
   .addTag('Sales')
+  .addBearerAuth()
   .build();
 
   const document = SwaggerModule.createDocument(app, blog);
+;
   SwaggerModule.setup('api', app, document);
   app.useGlobalPipes(new ValidationPipe());  
 
