@@ -13,7 +13,7 @@ import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { Payment } from './schema/payment.schema';
-import { AuthGuard } from '~/app/auth/guards/auth.guard';
+import { AuthGuard } from '~/modules/auth/guards/auth.guard';
 
 @ApiTags('Payments')
 @Controller('payments')

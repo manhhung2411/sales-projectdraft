@@ -14,7 +14,7 @@ import { ApiBearerAuth, ApiBody, ApiTags,  } from '@nestjs/swagger';
 import {GetOrderQuery, Order } from './schema/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { AuthGuard } from '~/app/auth/guards/auth.guard';
+import { AuthGuard } from '~/modules/auth/guards/auth.guard';
 @ApiTags('Orders')
 @Controller('orders')
 @ApiBearerAuth()
