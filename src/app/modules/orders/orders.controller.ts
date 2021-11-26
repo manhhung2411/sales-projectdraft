@@ -6,19 +6,18 @@ import {
   Patch,
   Param,
   Delete,
-  Res,
-  HttpStatus,
   Query,
-  NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import {GetOrderQuery, Order } from './schema/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-
+import { AuthGuard } from '~/app/auth/guards/auth.guard';
 @ApiTags('Orders')
 @Controller('orders')
+@UseGuards(AuthGuard)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 

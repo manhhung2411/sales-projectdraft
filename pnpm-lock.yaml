@@ -17,6 +17,7 @@ specifiers:
   '@types/multer': ^1.4.7
   '@types/node': ^16.0.0
   '@types/supertest': ^2.0.11
+  '@types/uuid': ^8.3.3
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
   class-transformer: ^0.4.0
@@ -25,7 +26,9 @@ specifiers:
   eslint: ^8.0.1
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
+  install: ^0.13.0
   jest: ^27.2.5
+  mongodb: ^4.2.0
   mongoose: ^6.0.13
   passport: ^0.5.0
   passport-jwt: ^4.0.0
@@ -54,6 +57,7 @@ dependencies:
   class-transformer: 0.4.0
   class-validator: 0.13.2
   config: 3.3.6
+  mongodb: 4.2.0
   mongoose: 6.0.13
   passport: 0.5.0
   passport-jwt: 4.0.0
@@ -73,11 +77,13 @@ devDependencies:
   '@types/multer': 1.4.7
   '@types/node': 16.11.9
   '@types/supertest': 2.0.11
+  '@types/uuid': 8.3.3
   '@typescript-eslint/eslint-plugin': 5.4.0_5c8ff4cecd5a55e744866c0654edac32
   '@typescript-eslint/parser': 5.4.0_eslint@8.3.0+typescript@4.5.2
   eslint: 8.3.0
   eslint-config-prettier: 8.3.0_eslint@8.3.0
   eslint-plugin-prettier: 4.0.0_6c1acfc8d9d3a8dba99beef4e8bcebae
+  install: 0.13.0
   jest: 27.3.1_ts-node@10.4.0
   prettier: 2.4.1
   source-map-support: 0.5.21
@@ -1268,6 +1274,10 @@ packages:
     resolution: {integrity: sha512-uci4Esokrw9qGb9bvhhSVEjd6rkny/dk5PK/Qz4yxKiyppEI+dOPlNrZBahE3i+PoKFYyDxChVXZ/ysS/nrm1Q==}
     dependencies:
       '@types/superagent': 4.1.13
+    dev: true
+
+  /@types/uuid/8.3.3:
+    resolution: {integrity: sha512-0LbEEx1zxrYB3pgpd1M5lEhLcXjKJnYghvhTRgaBeUivLHMDM1TzF3IJ6hXU2+8uA4Xz+5BA63mtZo5DjVT8iA==}
     dev: true
 
   /@types/webidl-conversions/6.1.1:
@@ -3117,6 +3127,11 @@ packages:
       through: 2.3.8
     dev: true
 
+  /install/0.13.0:
+    resolution: {integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==}
+    engines: {node: '>= 0.10'}
+    dev: true
+
   /interpret/1.4.0:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
     engines: {node: '>= 0.10'}
@@ -4110,6 +4125,17 @@ packages:
 
   /mongodb/4.1.4:
     resolution: {integrity: sha512-Cv/sk8on/tpvvqbEvR1h03mdyNdyvvO+WhtFlL4jrZ+DSsN/oSQHVqmJQI/sBCqqbOArFcYCAYDfyzqFwV4GSQ==}
+    engines: {node: '>=12.9.0'}
+    dependencies:
+      bson: 4.5.4
+      denque: 2.0.1
+      mongodb-connection-string-url: 2.2.0
+    optionalDependencies:
+      saslprep: 1.0.3
+    dev: false
+
+  /mongodb/4.2.0:
+    resolution: {integrity: sha512-lg3MJ9dAKxhogRnIB6/j63gfD7JryZwRC0nNzZ82RhENw4nCmscZVqRfOmNzTvSNndJx9ZhxZpm9JvnKuH/GTA==}
     engines: {node: '>=12.9.0'}
     dependencies:
       bson: 4.5.4

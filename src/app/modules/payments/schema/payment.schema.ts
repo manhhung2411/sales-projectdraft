@@ -14,11 +14,11 @@ export class Payment extends BaseSchema {
 
   @ApiProperty()
   @Prop({ type: 'string', required: true, trim: true, enum: Status, default: Status.PENDING })
-  status: string;
+  status?: string = Status.PENDING;
 }
 
 export type PaymentDocument = Payment & Document;
 
-export const PaymentSchema = SchemaFactory.createForClass(CreatePaymentDto);
+export const PaymentSchema = SchemaFactory.createForClass(Payment);
     
 

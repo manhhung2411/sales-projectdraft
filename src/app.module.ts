@@ -6,17 +6,19 @@ import { AppService } from './app.service';
 import { OrdersModule } from './app/modules/orders/orders.module';
 import { PaymentsModule } from './app/modules/payments/payments.module';
 import { LoggerMiddleware } from './utils/logger';
-import { AuthModule } from './app/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './app/auth/guards/auth.guard';
 
 @Module({
   imports: [
     MongooseModule.forRoot(config.get<string>('mongodb')),
     OrdersModule,
     PaymentsModule,
-    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ], 
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer){
