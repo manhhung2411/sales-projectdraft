@@ -13,7 +13,6 @@ export class OrdersService {
   ) {}
   async createOrder(createOrderDto: CreateOrderDto, productName: string): Promise<Order> {
     const order = await this.orderModel.findOne({ productName })
-    console.log(productName);
     if(order){
       throw new HttpException('ORDER_EXISTED', HttpStatus.BAD_REQUEST)
     }

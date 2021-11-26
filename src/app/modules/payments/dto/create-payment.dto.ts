@@ -1,9 +1,6 @@
-import { IsNotEmpty } from "class-validator";
-import { Status } from "../../enum/status.enum";
+import { IsNotEmpty } from 'class-validator';
+import { Status } from '../../enum/status.enum';
 
 export class CreatePaymentDto {
-    @IsNotEmpty()
-    orderId!: string;
-
-    status?: string = Status.PENDING;
+  status?: string = Status.PENDING;
 }

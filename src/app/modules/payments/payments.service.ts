@@ -5,7 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { OrderDocument, OrderModelName } from '../orders/schema/order.schema';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
@@ -27,13 +27,21 @@ export class PaymentsService {
   async createPayment(
     createPaymentDto: CreatePaymentDto,
     orderId: string,
-  ): Promise<Payment> {
-    const order = await this.orderModel.findById({_id: new Types.ObjectId(orderId)});
-    if (!order) {
-      throw new HttpException('ORDER_ID_NOT_EXIST', HttpStatus.BAD_REQUEST);
-    }
-    const createPayment = await this.paymentModel.create(createPaymentDto);
-    return createPayment;
+  ) {
+      if (!isValidObjectId(orderId)) {
+        throw new HttpException('ORDER_ID_NOT_EXIST', HttpStatus.NOT_FOUND);
+      }
+      const order = await this.orderModel.findById(orderId);
+      console.log(order);
+  
+      if (!order) {
+        throw new HttpException('ORDER_ID_NOT_EXIST', HttpStatus.NOT_FOUND);
+      }
+      const createPayment = await this.paymentModel.create({
+        ...createPaymentDto,
+        orderId: order._id,
+      });
+      return createPayment;
   }
 
   async listPayment(): Promise<Payment[]> {
