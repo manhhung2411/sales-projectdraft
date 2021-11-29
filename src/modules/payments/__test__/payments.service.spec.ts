@@ -1,4 +1,6 @@
+import { forwardRef } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { OrdersModule } from '~/modules/orders/orders.module';
 import { PaymentsService } from '../payments.service';
 
 describe('PaymentsService', () => {
@@ -6,6 +8,9 @@ describe('PaymentsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        forwardRef(() => OrdersModule)
+      ],
       providers: [PaymentsService],
     }).compile();
 

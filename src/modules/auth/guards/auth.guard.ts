@@ -10,4 +10,4 @@ export class AuthGuard implements CanActivate {
     const [type, token] = req.headers.authorization.split(' ');
     return type === config.get<string>('type') && token === config.get<string>('token');
   }
-}
+}                    

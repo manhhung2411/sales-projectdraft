@@ -1,15 +1,21 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, forwardRef, HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PaymentsModule } from '../payments/payments.module';
+import { PaymentsService } from '../payments/payments.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order, GetOrderQuery, OrderModelName, OrderDocument } from './schema/order.schema';
+
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectModel(OrderModelName)
     private readonly orderModel: Model<OrderDocument>,
+    
+    @Inject(forwardRef(() => PaymentsService))
+    private readonly paymentsService: PaymentsService,
   ) {}
   async createOrder(createOrderDto: CreateOrderDto, productName: string): Promise<Order> {
     const order = await this.orderModel.findOne({ productName })
@@ -17,8 +23,8 @@ export class OrdersService {
       throw new HttpException('ORDER_EXISTED', HttpStatus.BAD_REQUEST)
     }
     console.log(order)
-    const createOrder = await this.orderModel.create(createOrderDto); 
-    return createOrder
+    // await this.paymentsService.createPayment(order);
+    return await this.orderModel.create(createOrderDto); 
   }
 
   async listOrder(getOrderQuery: GetOrderQuery): Promise<Order[]> {

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
@@ -14,13 +16,16 @@ import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { Payment } from './schema/payment.schema';
 import { AuthGuard } from '~/modules/auth/guards/auth.guard';
+import { OrdersService } from '../orders/orders.service';
 
 @ApiTags('Payments')
 @Controller('payments')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
 export class PaymentsController {
-  constructor(private readonly paymentsService: PaymentsService) {}
+  constructor(
+    private readonly paymentsService: PaymentsService
+    ) {}
 
   @Post(':orderId')
   @ApiBody({ type: CreatePaymentDto })

@@ -3,10 +3,13 @@ import {
   NotFoundException,
   HttpException,
   HttpStatus,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
-import { OrderDocument, OrderModelName } from '../orders/schema/order.schema';
+import { OrdersService } from '~/modules/orders/orders.service';
+import { OrderDocument, OrderModelName } from '~/modules/orders/schema/order.schema';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import {
@@ -16,12 +19,13 @@ import {
 } from './schema/payment.schema';
 
 @Injectable()
-export class PaymentsService {
+export class PaymentsService { 
   constructor(
     @InjectModel(PaymentModelName)
     private readonly paymentModel: Model<PaymentDocument>,
-    @InjectModel(OrderModelName)
-    private readonly orderModel: Model<OrderDocument>,
+    
+    @Inject(forwardRef(() => OrdersService))
+    private readonly ordersService: OrdersService,
   ) {}
   async createPayment(
     createPaymentDto: CreatePaymentDto,
@@ -30,8 +34,7 @@ export class PaymentsService {
       if (!isValidObjectId(orderId)) {
         throw new HttpException('ORDER_ID_NOT_EXIST', HttpStatus.NOT_FOUND);
       }
-      const order = await this.orderModel.findById(orderId);
-      console.log(order);
+      const order = await this.ordersService.getOrder(orderId);
   
       if (!order) {
         throw new HttpException('ORDER_ID_NOT_EXIST', HttpStatus.NOT_FOUND);
@@ -57,7 +60,7 @@ export class PaymentsService {
 
   async updatePayment(
     paymentId: string,
-    updatePaymentDto: UpdatePaymentDto,
+    updatePaymentDto: UpdatePaymentDto,                                                                                                                                                 
   ): Promise<Payment> {
     const payment = await this.getPayment(paymentId);
     await this.paymentModel.findByIdAndUpdate(payment._id, updatePaymentDto);
