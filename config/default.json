@@ -2,5 +2,7 @@
     "port": 3000,
     "mongodb": "mongodb://localhost:27017/project-draft",
     "token": "18fc8b18-8246-4f0e-b599-b3650993a3ff",
-    "type": "Bearer"
+    "type": "Bearer",
+    "TOKEN_SECRET": "secret_123",
+    "TOKEN_EXPIRE": "20000000"
 }

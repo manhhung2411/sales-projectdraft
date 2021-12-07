@@ -4,7 +4,7 @@ import {Request} from 'express';
 
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class JwtAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<Request>();
     const [type, token] = req.headers.authorization.split(' ');
