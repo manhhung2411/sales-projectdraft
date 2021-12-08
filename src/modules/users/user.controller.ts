@@ -1,22 +1,23 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/guards/jwt.auth.guard';
+import { JwtAuthGuard } from '../auth/guards/auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { GetUserQuery, Login, User } from './schema/user.schema';
+import { GetUserQuery, User } from './schema/user.schema';
 import { UserService } from './user.service';
 
 
 @ApiTags('Users') 
 @Controller('user')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class UserController {
     constructor( private readonly userService: UserService){}
 
     @ApiBody({ type: User })
     @Post()
-    async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-        return await this.userService.createUser(createUserDto);
+    async create(@Body() createUserDto: CreateUserDto, email: string): Promise<User> {
+        return await this.userService.createUser(createUserDto, email);
     }
 
     @Get()

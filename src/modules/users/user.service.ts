@@ -18,10 +18,14 @@ export class UserService {
         private readonly authService: AuthService
     ) {}
     
-    async createUser(createUserDto: CreateUserDto): Promise<User> {
+    async createUser(createUserDto: CreateUserDto, email:string): Promise<User> {
         const { password, ...rest} = createUserDto
         const hashPassword = this.authService.hashPassword(createUserDto.password)
         // console.log(password)
+        const user = await this.userModel.find({email}).lean();
+        if(!user) {
+            throw new HttpException('EMAIL_EXISTED', HttpStatus.BAD_REQUEST)
+        }
         return await this.userModel.create({...rest, password: hashPassword})
     }
 

@@ -1,6 +1,6 @@
 {
     "port": 3000,
-    "mongodb": "mongodb://localhost:27017/project-draft",
+    "mongodb": "mongodb://test:test@localhost:27017/project-draft?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false",
     "token": "18fc8b18-8246-4f0e-b599-b3650993a3ff",
     "type": "Bearer",
     "TOKEN_SECRET": "secret_123",

@@ -32,15 +32,15 @@ export class AuthService {
         return from(bcrypt.compare(password, storedPasswordHash))
     }
 
-    async login(login: Login){
-        const user = await this.userService.findByEmail(login.email)
+    async authLogin(login: Login){
+        const {email, password} = login
+        const user = await this.userService.findByEmail(email)
         if(!user){
             throw new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
         }
         if(!this.userService.validatePassword){
             throw new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
         }
-
         const accessToken = this.generateJwt(user)
         return {
             ...user,
